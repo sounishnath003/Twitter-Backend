@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Ip } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -6,7 +6,14 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(@Ip() ip) {
+    return {
+      ip,
+      statusCode: 200,
+      status: 'OK',
+      message: `You are in twitter-backend api`,
+
+      timestamp: new Date(),
+    };
   }
 }
