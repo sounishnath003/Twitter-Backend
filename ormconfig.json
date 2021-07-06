@@ -1,0 +1,9 @@
+{
+  "type": "mysql",
+  "username": "root",
+  "password": "",
+  "database": "twitterDB",
+  "synchronize": true,
+  "logger": "advanced-console",
+  "logging": "all"
+}
