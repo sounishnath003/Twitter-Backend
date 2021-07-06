@@ -1,10 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { TwBaseEntity } from 'src/hastags/commons/base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity('users')
-export class UserEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class UserEntity extends TwBaseEntity {
   @Column('varchar', { length: 30, nullable: false, unique: true })
   username: string;
   @Column('varchar', { length: 50 })

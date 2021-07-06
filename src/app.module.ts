@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getConnectionOptions } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TwBaseEntity } from './hastags/commons/base.entity';
 import { HastagsController } from './hastags/hastags.controller';
+import { PostEntity } from './posts/entity/post.entity';
 import { PostsController } from './posts/posts.controller';
 import { UserEntity } from './users/entity/user.entity';
 import { UsersController } from './users/users.controller';
@@ -18,13 +19,7 @@ import { UsersController } from './users/users.controller';
       synchronize: true,
       logger: 'advanced-console',
       logging: 'all',
-      entities: [UserEntity],
-    }),
-    TypeOrmModule.forRootAsync({
-      useFactory: async () =>
-        Object.assign(await getConnectionOptions(), {
-          autoLoadEntities: true,
-        }),
+      entities: [TwBaseEntity, UserEntity, PostEntity],
     }),
   ],
   controllers: [
