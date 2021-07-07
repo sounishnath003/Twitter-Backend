@@ -4,6 +4,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import compression from 'fastify-compress';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -12,6 +13,10 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
   app.setGlobalPrefix('api');
+  app.register(compression, {
+    encodings: ['gzip', 'deflate'],
+    logLevel: 'trace',
+  });
 
   // OpenAPI Swagger Documentation
   const configuration = new DocumentBuilder()

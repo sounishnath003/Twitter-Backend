@@ -26,6 +26,7 @@
     "@nestjs/platform-fastify": "^7.6.18",
     "@nestjs/swagger": "^4.8.2",
     "@nestjs/typeorm": "^7.1.5",
+    "fastify-compress": "^3.6.0",
     "fastify-swagger": "^4.8.2",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
