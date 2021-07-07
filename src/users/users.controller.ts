@@ -1,5 +1,6 @@
 import {
   Body,
+  ConflictException,
   Controller,
   Delete,
   Get,
@@ -8,15 +9,21 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiProperty,
+  ApiPropertyOptional,
+  ApiTags,
+} from '@nestjs/swagger';
+import { UserEntity } from './entity/user.entity';
 import { UsersService } from './users.service';
 
 export class UserCreateRequestBody {
-  username: string;
-  password: string;
-  name?: string;
-  avatar?: string;
-  bio?: string;
+  @ApiProperty() username: string;
+  @ApiProperty() password: string;
+  @ApiPropertyOptional() name?: string;
+  @ApiPropertyOptional() avatar?: string;
+  @ApiPropertyOptional() bio?: string;
 }
 
 @ApiTags('users')
@@ -27,20 +34,35 @@ export class UsersController {
   @Get('/@:username')
   async getUserByUsername(@Param('username') username: string) {
     const user = await this.userService.getUserByUsername(username);
-    if (!user) return new NotFoundException('User not found!');
+    if (!user)
+      return new NotFoundException(`User not found with username ${username}!`);
     return user;
   }
 
   @Get('/:userId')
-  getUserByUserId(@Param('userId') userId: string): string {
-    return `details of user id = ${userId}`;
+  async getUserByUserId(
+    @Param('userId') userId: string,
+  ): Promise<NotFoundException | UserEntity> {
+    const user = await this.userService.getUserByUserId(userId);
+    if (!user) {
+      return new NotFoundException(`User not found with id ${userId}`);
+    }
+    return user;
   }
 
-  @Post('/')
-  createNewUser(
+  @ApiBody({ type: UserCreateRequestBody })
+  @Post('/create')
+  async createNewUser(
     @Body() createUserRequest: UserCreateRequestBody,
-  ): UserCreateRequestBody {
-    return createUserRequest;
+  ): Promise<ConflictException | (Partial<UserEntity> & UserEntity)> {
+    const isUserExists = await this.userService.getUserByUsername(
+      createUserRequest.username,
+    );
+    if (isUserExists)
+      return new ConflictException(
+        `username ${createUserRequest.username} has been already registered!!`,
+      );
+    return await this.userService.createUser(createUserRequest);
   }
 
   @Put('/:userid/follow')

@@ -9,4 +9,18 @@ export class UsersService {
   public async getUserByUsername(username: string): Promise<UserEntity> {
     return await this.userRepo.findByUsername(username);
   }
+
+  /**
+   * getUserByUserId
+   */
+  public async getUserByUserId(userId: string): Promise<UserEntity> {
+    return await this.userRepo.findUserByUserId(userId);
+  }
+
+  /**
+   * createUser
+   */
+  public async createUser(user: Partial<UserEntity>) {
+    return this.userRepo.save(user);
+  }
 }

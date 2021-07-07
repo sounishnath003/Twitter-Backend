@@ -7,6 +7,7 @@ export class UserEntity extends TwBaseEntity {
   username: string;
   @Column('varchar', { length: 50 })
   name: string;
+  @Column('varchar')
   avatar: string;
   @Column('varchar', { length: 240 })
   bio: string;
