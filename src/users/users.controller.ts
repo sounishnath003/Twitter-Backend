@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 export class UserCreateRequestBody {
   username: string;
@@ -16,16 +17,17 @@ export class UserCreateRequestBody {
   bio?: string;
 }
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   @Get('/@:username')
-  getUserByUsername(@Param() param): string {
-    return `details of username = @${param.username}`;
+  getUserByUsername(@Param('username') username: string): string {
+    return `details of username = @${username}`;
   }
 
   @Get('/:userId')
-  getUserByUserId(@Param() param): string {
-    return `details of user id = ${param.userId}`;
+  getUserByUserId(@Param('userId') userId: string): string {
+    return `details of user id = ${userId}`;
   }
 
   @Post('/')
@@ -36,8 +38,8 @@ export class UsersController {
   }
 
   @Put('/:userid/follow')
-  followUser(): string {
-    return 'you followed user';
+  followUser(@Param('userid') userid: string): string {
+    return `you followed user = ${userid}`;
   }
 
   @Delete('/:userid/follow')

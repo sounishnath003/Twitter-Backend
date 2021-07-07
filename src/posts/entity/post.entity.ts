@@ -1,5 +1,6 @@
 import { TwBaseEntity } from 'src/hastags/commons/base.entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { UserEntity } from 'src/users/entity/user.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity('posts')
 export class PostEntity extends TwBaseEntity {
@@ -8,6 +9,11 @@ export class PostEntity extends TwBaseEntity {
 
   @Column('json')
   images: string[];
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'author_id' })
+  @Column('uuid', { name: 'author_id', nullable: false })
+  authorId: string;
 
   @Column({ name: 'like_count', default: 0 })
   likeCount: 0;
