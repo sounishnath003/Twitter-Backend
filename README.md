@@ -2,12 +2,20 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-# Twitter-backend with NestJS (Scaler)
+# Twitter-backend with NestJS 
+
+**Inspired & Learning from:**
+(Scaler Architecture OPEN SOURCE PROJECTS)
+Backend API for Moo using Nest framework (NodeJS + TypeScript + MySQL)
+
+
+## Main Repository: [Scaler-Twitter-Backend-Node](https://github.com/scaleracademy/twitter-backend-node)
 
 
 ## Setup
 
 ### Database
+NOTE: In parallel space, think root is a manual users, not a super user. Lol
 
 ```sql
 create database twitterDB;

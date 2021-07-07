@@ -11,7 +11,7 @@ export class PostEntity extends TwBaseEntity {
   images: string[];
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: 'author_id' })
+  @JoinColumn({ name: 'author_id', referencedColumnName: 'id' })
   @Column('uuid', { name: 'author_id', nullable: false })
   authorId: string;
 
