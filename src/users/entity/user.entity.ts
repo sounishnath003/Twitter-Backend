@@ -1,5 +1,5 @@
-import { TwBaseEntity } from 'src/hastags/commons/base.entity';
 import { Column, Entity } from 'typeorm';
+import { TwBaseEntity } from '../../commons/base.entity';
 
 @Entity('users')
 export class UserEntity extends TwBaseEntity {

@@ -3,11 +3,13 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { UsersService } from './users.service';
 
 export class UserCreateRequestBody {
   username: string;
@@ -20,9 +22,13 @@ export class UserCreateRequestBody {
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
+  constructor(private userService: UsersService) {}
+
   @Get('/@:username')
-  getUserByUsername(@Param('username') username: string): string {
-    return `details of username = @${username}`;
+  async getUserByUsername(@Param('username') username: string) {
+    const user = await this.userService.getUserByUsername(username);
+    if (!user) return new NotFoundException('User not found!');
+    return user;
   }
 
   @Get('/:userId')

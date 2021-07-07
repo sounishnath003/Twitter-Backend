@@ -1,6 +1,6 @@
-import { TwBaseEntity } from 'src/hastags/commons/base.entity';
 import { UserEntity } from 'src/users/entity/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { TwBaseEntity } from '../../commons/base.entity';
 
 @Entity('posts')
 export class PostEntity extends TwBaseEntity {
