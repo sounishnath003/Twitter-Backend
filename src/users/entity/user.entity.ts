@@ -5,6 +5,8 @@ import { TwBaseEntity } from '../../commons/base.entity';
 export class UserEntity extends TwBaseEntity {
   @Column('varchar', { length: 30, nullable: false, unique: true })
   username: string;
+  @Column('varchar', { length: 30, nullable: false })
+  password: string;
   @Column('varchar', { length: 50 })
   name: string;
   @Column('varchar')

@@ -25,4 +25,15 @@ export class UsersService {
   ): Promise<Partial<UserEntity> & UserEntity> {
     return this.userRepo.save(user);
   }
+
+  async updateUser(userid: string, updateUserRequest: Partial<UserEntity>) {
+    let existingUser = await this.getUserByUserId(userid);
+    if (!existingUser) {
+      return null;
+    }
+    
+    existingUser = { ...existingUser, ...updateUserRequest };
+
+    return await this.userRepo.save(existingUser);
+  }
 }

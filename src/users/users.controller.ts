@@ -6,6 +6,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -21,6 +22,13 @@ import { UsersService } from './users.service';
 export class UserCreateRequestBody {
   @ApiProperty() username: string;
   @ApiProperty() password: string;
+  @ApiPropertyOptional() name?: string;
+  @ApiPropertyOptional() avatar?: string;
+  @ApiPropertyOptional() bio?: string;
+}
+
+export class UserUpdateRequestBody {
+  @ApiPropertyOptional() password?: string;
   @ApiPropertyOptional() name?: string;
   @ApiPropertyOptional() avatar?: string;
   @ApiPropertyOptional() bio?: string;
@@ -63,6 +71,15 @@ export class UsersController {
         `username ${createUserRequest.username} has been already registered!!`,
       );
     return await this.userService.createUser(createUserRequest);
+  }
+
+  @ApiBody({ type: UserUpdateRequestBody })
+  @Patch('/:userid')
+  async updateUserDetails(
+    @Param('userid') userid: string,
+    @Body() updateUserRequest: UserUpdateRequestBody,
+  ) {
+    return await this.userService.updateUser(userid, updateUserRequest);
   }
 
   @Put('/:userid/follow')
