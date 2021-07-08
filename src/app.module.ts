@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { TwBaseEntity } from './commons/base.entity';
 import { HastagsController } from './hastags/hastags.controller';
 import { PostEntity } from './posts/entity/post.entity';
-import { PostsController } from './posts/posts.controller';
+import { PostsModule } from './posts/posts.module';
 import { UserEntity } from './users/entity/user.entity';
 import { UsersModule } from './users/users.module';
 
@@ -22,8 +22,9 @@ import { UsersModule } from './users/users.module';
       entities: [TwBaseEntity, UserEntity, PostEntity],
     }),
     UsersModule,
+    PostsModule,
   ],
-  controllers: [AppController, PostsController, HastagsController],
+  controllers: [AppController, HastagsController],
   providers: [AppService],
 })
 export class AppModule {}

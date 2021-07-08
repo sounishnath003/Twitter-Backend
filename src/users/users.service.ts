@@ -20,7 +20,9 @@ export class UsersService {
   /**
    * createUser
    */
-  public async createUser(user: Partial<UserEntity>) {
+  public async createUser(
+    user: Partial<UserEntity>,
+  ): Promise<Partial<UserEntity> & UserEntity> {
     return this.userRepo.save(user);
   }
 }

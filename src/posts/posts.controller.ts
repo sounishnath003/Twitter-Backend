@@ -1,9 +1,35 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import {
+  ApiBody,
+  ApiProperty,
+  ApiPropertyOptional,
+  ApiTags,
+} from '@nestjs/swagger';
+import { PostEntity } from './entity/post.entity';
+import { PostsService } from './posts.service';
+
+export class PostCreateRequestBody {
+  @ApiProperty() text: string;
+  @ApiProperty() images?: string[];
+  @ApiPropertyOptional() authorId: string;
+  @ApiPropertyOptional() hashtags?: string[];
+  @ApiPropertyOptional() mentions?: { name: string; id: string }[];
+  @ApiPropertyOptional() originalPost?: PostEntity;
+}
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
+  constructor(private readonly postService: PostsService) {}
+
   @Get('/')
   getAllPosts(): string {
     // TODO
@@ -16,10 +42,13 @@ export class PostsController {
     return `details of postid = ${postid}`;
   }
 
-  @Post('/')
-  createNewPost(): string {
+  @ApiBody({ type: PostCreateRequestBody })
+  @Post('/create')
+  async createNewPost(
+    @Body() postPayload: PostCreateRequestBody,
+  ): Promise<Partial<PostEntity> & PostEntity> {
     // TODO
-    return `new post was created`;
+    return await this.postService.createPost(postPayload);
   }
 
   @Delete('/:postid')
