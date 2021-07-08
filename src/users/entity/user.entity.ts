@@ -1,4 +1,5 @@
-import { Column, Entity } from 'typeorm';
+import { PasswordEntity } from 'src/auth/entity/password.entity';
+import { Column, Entity, OneToOne } from 'typeorm';
 import { TwBaseEntity } from '../../commons/base.entity';
 
 @Entity('users')
@@ -19,4 +20,10 @@ export class UserEntity extends TwBaseEntity {
   followeeCount: string;
   @Column('bool', { default: false })
   verified: boolean;
+
+  @OneToOne(() => PasswordEntity, (password) => password.user, {
+    lazy: true,
+    cascade: true,
+  })
+  userPassword: PasswordEntity;
 }

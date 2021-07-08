@@ -31,7 +31,7 @@ export class UsersService {
     if (!existingUser) {
       return null;
     }
-    
+
     existingUser = { ...existingUser, ...updateUserRequest };
 
     return await this.userRepo.save(existingUser);
