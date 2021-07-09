@@ -1,5 +1,5 @@
 import { PasswordEntity } from 'src/auth/entity/password.entity';
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { TwBaseEntity } from '../../commons/base.entity';
 
 @Entity('users')
@@ -21,9 +21,7 @@ export class UserEntity extends TwBaseEntity {
   @Column('bool', { default: false })
   verified: boolean;
 
-  @OneToOne(() => PasswordEntity, (password) => password.user, {
-    lazy: true,
-    cascade: true,
-  })
+  @JoinColumn()
+  @OneToOne(() => PasswordEntity, { lazy: true, cascade: ['insert'] })
   userPassword: PasswordEntity;
 }

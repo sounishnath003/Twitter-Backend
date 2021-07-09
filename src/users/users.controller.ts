@@ -70,7 +70,10 @@ export class UsersController {
       return new ConflictException(
         `username ${createUserRequest.username} has been already registered!!`,
       );
-    return await this.userService.createUser(createUserRequest);
+    return await this.userService.createUser(
+      createUserRequest,
+      createUserRequest.password,
+    );
   }
 
   @ApiBody({ type: UserUpdateRequestBody })
