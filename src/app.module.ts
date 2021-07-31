@@ -15,8 +15,8 @@ import { UsersModule } from './users/users.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      username: 'root',
-      password: '',
+      username: 'twiDB',
+      password: 'twiDB@123',
       database: 'twitterDB',
       synchronize: true,
       logger: 'advanced-console',

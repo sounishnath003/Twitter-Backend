@@ -4,6 +4,9 @@ import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('passwords')
 export class PasswordEntity extends TwBaseEntity {
+  @Column()
+  userId: string;
+
   @JoinColumn()
   @OneToOne(() => UserEntity)
   user: UserEntity;

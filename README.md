@@ -18,9 +18,9 @@ Backend API for Moo using Nest framework (NodeJS + TypeScript + MySQL)
 NOTE: In parallel space, think root is a manual users, not a super user. Lol
 
 ```sql
-create database twitterDB;
-create user root with password '' ;
-grant all privileges on database twitterDB to root ;
+CREATE DATABASE twitterDB ;
+CREATE USER 'twiDB'@'localhost' IDENTIFIED BY 'twiDB@123';
+GRANT ALL PRIVILEGES ON twitterDB.* TO 'twiDB'@'localhost' ;
 ```
 
 
